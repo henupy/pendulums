@@ -23,14 +23,14 @@ def rk4(diff_eq: Callable, y0: vec, trange: np.ndarray, *args) -> np.ndarray:
     Solves a system of first-order differential equations using the
     classic Runge-Kutta method
     :param diff_eq: Function which returns the righthandside of the
-    equations making up the system of equations
+        equations making up the system of equations
     :param y0: Initial values for y and y' (i.e. the terms in the system
-    of equations)
+        of equations)
     :param trange: Time points for which the equation is solved
     :param args: Any additional paramaters for the differential equation
     :return: A m x n size matrix, where m is the amount of equations
-    and n is the amount of timesteps. Contains values for each equation
-    at each timestep.
+        and n is the amount of timesteps. Contains values for each equation
+        at each timestep.
     """
     m = trange.size
     dt = trange[1] - trange[0]
@@ -76,7 +76,7 @@ class SinglePendulum:
         Differential equation of the pendulum
         :param init_conds: Angle and velocity
         :param _: Necessary, but unused, parameter indicating the
-        timestep
+            timestep
         :param k: Value for the air resistance
         :param m: Mass of the swinging weight
         :param l_len: Length of the line
