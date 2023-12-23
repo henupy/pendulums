@@ -3,9 +3,7 @@ Simple gravity pendulum with air resistance taken into account
 """
 
 import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
 from typing import Callable
 from matplotlib.animation import FuncAnimation
@@ -13,9 +11,6 @@ from matplotlib.animation import FuncAnimation
 # Shortcuts for type hinting
 num = int | float
 vec = list | np.ndarray
-
-mpl.rcParams['animation.ffmpeg_path'] = r'C:\Users\henri\ffmpeg\bin' \
-                                        r'\ffmpeg.exe'
 
 
 def rk4(diff_eq: Callable, y0: vec, trange: np.ndarray, *args) -> np.ndarray:
@@ -102,8 +97,8 @@ class SinglePendulum:
         fig_graph, ax_graph = plt.subplots()
         ax_graph.grid()
         self._solve()
-        plt.plot(self.tspan, self.sol[:, 0], label='theta(t)')
-        plt.plot(self.tspan, self.sol[:, 1], label='omega(t)')
+        plt.plot(self.tspan, self.sol[:, 0], label="theta(t)")
+        plt.plot(self.tspan, self.sol[:, 1], label="omega(t)")
         plt.legend()
 
     def _create_plots(self) -> tuple:
@@ -117,8 +112,8 @@ class SinglePendulum:
         x_init = -self.l_len * np.sin(self.sol[:, 0][0])
         y_init = -self.l_len * -np.cos(self.sol[:, 0][0])
         line = plt.plot([0, x_init], [0, y_init])[0]
-        ball = plt.plot([x_init], [y_init], 'ro')[0]
-        cross = plt.plot([0], [0], 'kx')[0]
+        ball = plt.plot([x_init], [y_init], "ro")[0]
+        cross = plt.plot([0], [0], "kx")[0]
         plot_objs = (line, ball, cross)
         return fig_anim, plot_objs
 
@@ -148,8 +143,7 @@ class SinglePendulum:
         fig_anim, plot_objs = self._create_plots()
         anim = FuncAnimation(fig_anim, self._update_plots, self.tspan.size,
                              fargs=(plot_objs, self.sol), interval=10, blit=True)
-        writer = animation.FFMpegWriter(fps=30)
-        anim.save('pend_first.avi', writer=writer)
+        anim.save("pend_first.gif", writer="pillow")
         plt.show()
 
 
@@ -164,5 +158,5 @@ def main():
     pend.animate()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
